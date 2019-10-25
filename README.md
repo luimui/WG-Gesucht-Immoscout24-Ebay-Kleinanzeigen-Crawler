@@ -3,7 +3,9 @@ Scraper that sends emails on new apartment posts
 
 ## Installation
 Ubuntu:
+```
 pip install -r requirements.txt
+```
 
 To make the trick with mail work you need to config postfix on your machine to make the command `mail` work.
 https://www.linode.com/docs/email/postfix/configure-postfix-to-send-mail-using-gmail-and-google-apps-on-debian-or-ubuntu/
