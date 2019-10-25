@@ -12,8 +12,8 @@ lxml==3.6.0
 pathspec==0.3.4
 pyquery==1.2.13
 python-dateutil==2.5.2
-PyYAML==3.11
-requests==2.9.1
+PyYAML==5.1.2
+requests==2.22.0
 semantic-version==2.5.0
 six==1.10.0
 texttable==0.8.4
