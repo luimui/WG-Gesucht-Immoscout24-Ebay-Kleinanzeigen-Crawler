@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 ADS_FILE = 'ads_seen.json'
 BASE_URL = 'https://www.ebay-kleinanzeigen.de'
 URL = BASE_URL + '/s-wohnung-mieten/rostock/c203l137'
-TIME_WINDOW_HOURS = 24
+TIME_WINDOW_HOURS = 48
 
 # Load seen ads
 if os.path.exists(ADS_FILE):
@@ -61,11 +61,14 @@ def extract_meta_from_detail(url):
         return {'title': 'Error', 'price': '', 'location': '', 'date': '', 'link': url}
 
 if new_ads:
-    print("New apartment ads in the last 24 hours:\n")
+    print("New apartment ads in the last 48 hours:\n")
     rows = []
 
     for url in new_ads:
         meta = extract_meta_from_detail(url)
+        # Filter out listings with 'TAUSCHWOHNUNG' in the title
+        if 'TAUSCHWOHNUNG' in meta['title'].upper():
+            continue
         # Try to extract price as integer
         price_str = meta['price'].replace('€', '').replace('.', '').replace(',', '').strip()
         price_val = None
@@ -77,7 +80,7 @@ if new_ads:
             rows.append(meta)
 
     headers = ["Title", "Price", "Location", "Date", "Link"]
-    col_widths = [40, 15, 20, 18, 200]
+    col_widths = [40, 15, 50, 50, 200]
     def format_row(row):
         return f"{row['title'][:col_widths[0]].ljust(col_widths[0])} | " \
                f"{row['price'][:col_widths[1]].ljust(col_widths[1])} | " \

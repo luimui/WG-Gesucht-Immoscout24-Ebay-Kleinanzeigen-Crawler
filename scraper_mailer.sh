@@ -12,7 +12,9 @@ while true; do
 	python3 scraper.py > "$TMP_FILE"
 	# Only send mail if there are new ads (body contains URLs)
 	if grep -q "https://www.ebay-kleinanzeigen.de" "$TMP_FILE"; then
-		python3 "$SCRIPT_DIR/send_mail.py" "EBAY-KA $(date) New Apartments" < "$TMP_FILE"
+		count=$(grep -c "https://www.ebay-kleinanzeigen.de" "$TMP_FILE")
+		subject="EBAY-KA $(date +"%F %T") | ${count} new apartments (350-950 EUR)"
+		python3 "$SCRIPT_DIR/send_mail.py" "$subject" < "$TMP_FILE"
 		printf "%s\n" "$(date +"%F %T")" | tee -a "$LOG_FILE"
 		cat "$TMP_FILE" | tee -a "$LOG_FILE"
 	fi

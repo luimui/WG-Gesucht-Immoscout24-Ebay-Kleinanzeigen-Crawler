@@ -2,3 +2,6 @@
 .ropeproject
 lastid.tmp
 body.tmp
+*.log
+*.json
+.env
